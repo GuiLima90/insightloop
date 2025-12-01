@@ -10,8 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_01_201437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "actionables", force: :cascade do |t|
+    t.text "content"
+    t.bigint "insight_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["insight_id"], name: "index_actionables_on_insight_id"
+  end
+
+  create_table "asks", force: :cascade do |t|
+    t.text "input"
+    t.text "output"
+    t.string "model_type"
+    t.integer "input_tokens"
+    t.integer "output_tokens"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_asks_on_user_id"
+  end
+
+  create_table "insights", force: :cascade do |t|
+    t.text "content"
+    t.bigint "ask_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ask_id"], name: "index_insights_on_ask_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "actionables", "insights"
+  add_foreign_key "asks", "users"
+  add_foreign_key "insights", "asks"
 end
