@@ -10,36 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_01_201437) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_02_150350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "actionables", force: :cascade do |t|
-    t.text "content"
-    t.bigint "insight_id", null: false
+  create_table "chats", force: :cascade do |t|
+    t.text "title"
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["insight_id"], name: "index_actionables_on_insight_id"
+    t.index ["question_id"], name: "index_chats_on_question_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
-  create_table "asks", force: :cascade do |t|
-    t.text "input"
-    t.text "output"
-    t.string "model_type"
-    t.integer "input_tokens"
-    t.integer "output_tokens"
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.text "role"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "content"
+    t.text "name"
+    t.text "system_prompt"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_asks_on_user_id"
-  end
-
-  create_table "insights", force: :cascade do |t|
-    t.text "content"
-    t.bigint "ask_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ask_id"], name: "index_insights_on_ask_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,7 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_201437) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "actionables", "insights"
-  add_foreign_key "asks", "users"
-  add_foreign_key "insights", "asks"
+  add_foreign_key "chats", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "questions", "users"
 end
