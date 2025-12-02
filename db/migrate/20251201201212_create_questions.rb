@@ -5,7 +5,7 @@ class CreateQuestions < ActiveRecord::Migration[7.1]
       t.text :content
       t.text :name
       t.text :system_prompt
-      t.references :user, null: false, foreign_key: true
+
 
       t.timestamps
     end
