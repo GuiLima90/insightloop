@@ -1,2 +1,13 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home-hero d-flex align-items-center justify-content-center text-center">
+  <div class="hero-content">
+
+    <h1 class="hero-title">Transforme textos complexos em insights claros</h1>
+
+    <p class="hero-subtitle">
+      Um assistente de IA que analisa mensagens, identifica problemas e entrega recomendações em segundos.
+    </p>
+
+    <%= link_to "Start Analysis", new_user_session_path, class: "btn btn-primary btn-lg hero-btn" %>
+
+  </div>
+</div>
