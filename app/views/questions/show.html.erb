@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col">
     <h1><%= @question.name %></h1>
-    <%= raw(render_markdown(@question.content)) %>
+    <%= @question.content %>
   </div>
   <div class="col-md-3">
     <h2>Chats</h2>
+    <%= button_to "New chat", question_chats_path(@question), class: "btn btn-primary" %>
     <div class="mb-4">
       <% if @chats.any? %>
         <ul>
@@ -16,18 +17,5 @@
         There are no chats yet.
       <% end %>
     </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <h1><%= @question.name %></h1>
-    <%= raw(render_markdown(@question.content)) %>
-  </div>
-  <div class="col-md-3">
-    <h2>Chats</h2>
-    <!-- ... -->
-
-    <%= button_to "New chat", question_chats_path(@question), class: "btn btn-primary" %>
   </div>
 </div>

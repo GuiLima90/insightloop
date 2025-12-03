@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Insightloop</title>
+    <title>InsightLoop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,59 +11,24 @@
   </head>
 
   <body>
-   <% if controller_name == "pages" && action_name == "home" %>
+    <%= render "shared/navbar" %>
 
-  <!-- Apenas par a home page NAVBAR MINIMALISTA NA HOME -->
-  <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
-      </a>
+      <div class="row" data-controller="toggle">
+        <nav class="col-md-2 sidebar pt-3" data-toggle-target="hideable">
+          <%= render "shared/sidenav", questions: @questions %>
+        </nav>
+        <div class="col-md-10 my-4">
+          <%= render "shared/flashes" %>
+
+          <%= link_to "#", class: "d-none nav-link text-dark",
+                          data: {action: "click->toggle#call", toggle_target: "show"} do %>
+            <i class="fa-regular fa-square-caret-right"></i>
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </div>
     </div>
-  </div>
-
-<% else %>
-
-  <!-- Aqui se for para as outras paginas NAVBAR COMPLETA NO RESTO DO SITE -->
-  <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
-      </a>
-
-      <ul class="navbar-nav ms-auto">
-
-        <% if defined?(user_signed_in?) && user_signed_in? %>
-
-          <li class="nav-item">
-            <%= link_to "New Analysis", new_ask_path, class: "nav-link" %>
-          </li>
-
-          <li class="nav-item">
-            <%= link_to "My Analyses", asks_path, class: "nav-link" %>
-          </li>
-
-          <li class="nav-item">
-            <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
-          </li>
-
-        <% else %>
-
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-
-          <li class="nav-item">
-            <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
-          </li>
-
-        <% end %>
-
-      </ul>
-    </div>
-  </div>
-
-<% end %>
-    <%= yield %>
   </body>
 </html>
