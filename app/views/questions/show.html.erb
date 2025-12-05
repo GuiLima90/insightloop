@@ -1,21 +1,167 @@
-<div class="row">
-  <div class="col">
-    <h1><%= @question.name %></h1>
-    <%= @question.content %>
-  </div>
-  <div class="col-md-3">
-    <h2>Chats</h2>
-    <%= button_to "New chat", question_chats_path(@question), class: "btn btn-primary" %>
-    <div class="mb-4">
-      <% if @chats.any? %>
-        <ul>
-          <% @chats.each do |chat| %>
-            <li><%= link_to chat.title, chat_path(chat) %></li>
+<div class="container-fluid py-4">
+  <div class="row">
+    <!-- Coluna principal: conversa -->
+    <div class="col-lg-7 col-xl-7 conversation-column">
+
+      <!-- Título + busca -->
+      <div class="d-flex justify-content-between align-items-end mb-3 border-bottom pb-2">
+        <div>
+          <h1 class="h4 mb-1"><%= @question.name %></h1>
+          <p class="text-muted small mb-0">Customer support conversation</p>
+        </div>
+
+        <div class="conversation-search">
+          <span class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="14" height="14" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+
+          <input
+            type="text"
+            id="conversationSearchInput"
+            class="form-control form-control-sm"
+            placeholder="Search..."
+            oninput="highlightConversationSearch()"
+          >
+        </div>
+      </div>
+
+      <!-- Container da conversa -->
+      <div class="conversation-container">
+        <div class="conversation-wrapper">
+          <% conversation_messages(@question.content).each do |message| %>
+            <div class="d-flex mb-3 <%= 'justify-content-end' if message[:role] == 'Support Agent' %>">
+              <div class="chat-bubble <%= message[:role] == 'Support Agent' ? 'chat-bubble-agent' : 'chat-bubble-customer' %>">
+                <div class="chat-meta mb-1">
+                  <%= message[:role] == 'Support Agent' ? 'Support agent' : 'Customer' %>
+                </div>
+                <div class="chat-bubble-content"
+                     data-original-content="<%= simple_format(message[:content]).gsub('"', '&quot;') %>">
+                  <%= simple_format(message[:content]) %>
+                </div>
+              </div>
+            </div>
           <% end %>
-        </ul>
-      <% else %>
-        There are no chats yet.
-      <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna do meio: Case details -->
+    <div class="col-lg-2 col-xl-2 d-none d-lg-block mt-4">
+      <div class="side-card case-details mb-4">
+        <div class="side-card-header">Case details</div>
+
+        <div class="side-card-body">
+          <% # --------- DADOS FAKE DO CLIENTE --------- %>
+          <% customer_name  = ["Ana Souza", "Bruno Lima", "Carla Santos", "Diego Rocha", "Fernanda Alves", "Mariana Costa", "Rafael Mendes"].sample %>
+          <% customer_initials = customer_name.split.map { |n| n[0] }.join %>
+
+          <% segments = {
+            "New"       => "segment-new",
+            "Returning" => "segment-returning",
+            "VIP"       => "segment-vip",
+            "At risk"   => "segment-risk"
+          } %>
+          <% segment_label = segments.keys.sample %>
+
+          <% lifetime_value = rand(800..15_000) %>
+
+          <% churn_levels = {
+            "Low"    => "sentiment-positive",
+            "Medium" => "sentiment-neutral",
+            "High"   => "sentiment-negative"
+          } %>
+          <% churn_value = churn_levels.keys.sample %>
+
+          <% purchases_count = rand(1..15) %>
+          <% tickets_count   = rand(1..20) %>
+
+          <% # --------- BLOCO VISUAL DO CLIENTE --------- %>
+          <div class="customer-summary mb-3">
+            <div class="customer-avatar">
+              <%= customer_initials %>
+            </div>
+
+            <div class="customer-meta">
+              <div class="customer-name"><%= customer_name %></div>
+              <div class="customer-tags">
+                <span class="segment-badge <%= segments[segment_label] %>">
+                  <%= segment_label %> segment
+                </span>
+                <span class="ltv-label">
+                  LTV:
+                  <%= number_to_currency(
+                        lifetime_value,
+                        unit: "R$ ",
+                        separator: ",",
+                        delimiter: "."
+                      ) %>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <% # --------- LINHAS DE DETALHE --------- %>
+          <div class="detail-row">
+            <span class="detail-label">Ticket ID</span>
+            <span class="detail-value">#<%= @question.id %></span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Created at</span>
+            <span class="detail-value">
+              <%= @question.created_at.strftime("%d %b %Y, %H:%M") if @question.respond_to?(:created_at) %>
+            </span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Purchases (customer)</span>
+            <span class="detail-value"><%= purchases_count %> orders</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Churn risk</span>
+            <span class="detail-value">
+              <span class="sentiment-badge <%= churn_levels[churn_value] %>">
+                <%= churn_value %>
+              </span>
+            </span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Tickets total</span>
+            <span class="detail-value"><%= tickets_count %> tickets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna direita: Chats -->
+    <div class="col-lg-3 col-xl-3 ms-auto mt-4">
+      <div class="side-card">
+        <div class="side-card-header d-flex justify-content-between align-items-center">
+          <span>Chats about this case</span>
+          <%= button_to "New chat", question_chats_path(@question), class: "btn btn-sm btn-primary" %>
+        </div>
+
+        <% if @chats.any? %>
+          <% @chats.each do |chat| %>
+            <div class="chat-list-item">
+              <span><%= chat.title %></span>
+              <%= link_to "view", chat_path(chat), class: "btn btn-light chat-view-btn" %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="side-card-body text-muted small">
+            There are no chats yet.
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
