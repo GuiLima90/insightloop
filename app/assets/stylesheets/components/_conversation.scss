@@ -1,0 +1,256 @@
+/* ===== CONVERSATION AREA ===== */
+
+.conversation-wrapper {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.chat-bubble-customer {
+  background-color: #f2f6ff;
+  border-top-left-radius: 0.25rem;
+}
+
+.chat-bubble-agent {
+  background-color: #e8f8f2;
+  border-top-right-radius: 0.25rem;
+}
+
+.chat-meta {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.conversation-container {
+  background: #ffffff;
+  border-left: 4px solid #0d6efd;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 12px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.conversation-column {
+  padding-left: 12px;
+  padding-right: 16px;
+}
+
+/* ===== SEARCH BAR DA CONVERSA ===== */
+
+.conversation-search {
+  position: relative;
+  background: #ffffff;
+  padding: 4px 12px 4px 36px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0a0a0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.search-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.conversation-search input {
+  width: 180px;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 0.9rem;
+  padding-left: 4px;
+}
+
+.conversation-search input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.search-highlight {
+  background: #ffef9f;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+/* ===== CARDS LATERAIS (CASE DETAILS + CHATS) ===== */
+
+.side-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+.side-card-header {
+  padding: 8px 14px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #111827;
+}
+
+.side-card-body {
+  padding: 10px 14px;
+}
+
+/* ===== CASE DETAILS (LINHAS) ===== */
+
+.case-details .detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.detail-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.detail-value {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Sentiment / churn risk badge */
+.sentiment-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sentiment-positive {
+  background: #d4f8d8;
+  color: #1e7e34;
+}
+
+.sentiment-neutral {
+  background: #f1f2f6;
+  color: #636e72;
+}
+
+.sentiment-negative {
+  background: #fde2e1;
+  color: #c0392b;
+}
+
+/* ===== BLOCO DO CLIENTE (AVATAR + LTV + SEGMENTO) ===== */
+
+.customer-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.customer-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-right: 10px;
+}
+
+.customer-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.customer-tags {
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.segment-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Cores por segmento */
+.segment-new {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.segment-returning {
+  background: #e0f7e9;
+  color: #047857;
+}
+
+.segment-vip {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.segment-risk {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.ltv-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* ===== LISTA DE CHATS ===== */
+
+.chat-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-top: 1px solid #edf1f5;
+  font-size: 0.85rem;
+}
+
+.chat-list-item:first-of-type {
+  border-top: none;
+}
+
+.chat-view-btn {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
