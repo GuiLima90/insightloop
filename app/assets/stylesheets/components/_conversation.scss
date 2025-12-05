@@ -106,7 +106,7 @@
 
 .side-card-header {
   padding: 8px 14px;
-  background: #f9fafb;
+  background: #eef2ff;
   border-bottom: 1px solid #e5e7eb;
   font-weight: 600;
   font-size: 0.8rem;
@@ -115,6 +115,29 @@
 
 .side-card-body {
   padding: 10px 14px;
+}
+
+.chat-list-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.8rem;
+}
+
+.chat-list-item:last-child {
+  border-bottom: none;
+}
+
+.chat-list-title {
+  flex: 1;
+  margin-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-view-btn {
+  font-size: 0.8rem;
+  line-height: 1;
 }
 
 /* ===== CASE DETAILS (LINHAS) ===== */
@@ -234,6 +257,133 @@
   color: #6b7280;
 }
 
+/* ====== CHAT SHOW (AI ASSISTANT) ====== */
+
+.chat-header-card {
+  background: #eef2ff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.chat-messages-card {
+  border-radius: 12px;
+  max-height: 55vh;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+/* dá uma leve diferença visual pro card do form */
+.chat-form-card {
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+/* link de voltar para a question */
+.chat-back-link span:first-child {
+  font-size: 1.1rem;
+}
+
+.chat-back-link:hover {
+  color: #0d6efd !important;
+}
+
+/* deixa o textarea mais "produto" e menos "formulário gigante" */
+#new_message_container textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+/* se quiser que a área de mensagens tenha um espacinho entre blocos,
+   você pode ajustar o partial de messages, mas isso aqui ajuda no geral: */
+#messages {
+  font-size: 0.95rem;
+}
+
+/* ====== CHAT – LAYOUT DAS MESSAGES ====== */
+
+/* card de mensagens */
+.chat-messages-card {
+  border-radius: 12px;
+}
+
+/* área scrollável das mensagens */
+.chat-messages-wrapper {
+  max-height: 55vh;        /* só scroll vertical */
+  overflow-y: auto;
+  overflow-x: hidden;      /* nunca scroll para os lados */
+  padding: 16px 20px;
+}
+
+/* lista de mensagens */
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* linha da mensagem */
+.chat-message {
+  display: flex;
+}
+
+/* mensagem do usuário: vai para a direita */
+.chat-message-user {
+  justify-content: flex-end;
+}
+
+/* mensagem do assistente: fica na esquerda */
+.chat-message-assistant {
+  justify-content: flex-start;
+}
+
+/* “balão” em si */
+.chat-message-inner {
+  max-width: 70%;
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;   /* quebra palavras grandes */
+  white-space: pre-wrap;    /* respeita quebras de linha, sem criar scroll horizontal */
+}
+
+/* balão do usuário – cinza, estilo ChatGPT */
+.chat-message-user .chat-message-inner {
+  background: #f5f5f5;
+}
+
+/* balão do assistente – branco com borda levinha */
+.chat-message-assistant .chat-message-inner {
+  background: #ffffff;
+  border: 1px solid #eceff3;
+}
+
+/* “You” / “Insight Loop AI” */
+.chat-message-meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+/* corpo da mensagem – tipografia unificada */
+.chat-message-body {
+  font-family: inherit;       /* mesma fonte da app */
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* listas dentro da resposta: espaçamento bonito */
+.chat-message-body ul,
+.chat-message-body ol {
+  padding-left: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.chat-message-body li {
+  margin-bottom: 0.15rem;
+}
+
 /* ===== LISTA DE CHATS ===== */
 
 .chat-list-item {
@@ -253,4 +403,133 @@
   font-size: 0.75rem;
   padding: 2px 10px;
   border-radius: 999px;
+}
+
+/* ====== CHAT SHOW (AI ASSISTANT) ====== */
+
+.chat-header-card {
+  border-radius: 12px;
+  background: #eef2ff;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.chat-messages-card {
+  border-radius: 12px;
+  max-height: 55vh;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+/* card do form */
+.chat-form-card {
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+/* link de voltar para a question */
+.chat-back-link span:first-child {
+  font-size: 1.1rem;
+}
+
+.chat-back-link:hover {
+  color: #0d6efd !important;
+}
+
+/* textarea mais “produto” */
+#new_message_container textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+/* ===== CHAT – LISTA DE MENSAGENS ===== */
+
+/* wrapper scrollável das mensagens (dentro do card) */
+.chat-messages-wrapper {
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;     /* nunca scroll horizontal */
+  padding: 16px 20px;
+  font-size: 0.95rem;
+}
+
+/* lista das mensagens */
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;              /* espaçamento uniforme entre bolhas */
+}
+
+/* linha da mensagem */
+.chat-message {
+  display: flex;
+}
+
+/* mensagem do usuário vai pra direita */
+.chat-message-user {
+  justify-content: flex-end;
+}
+
+/* mensagem do assistente fica à esquerda */
+.chat-message-assistant {
+  justify-content: flex-start;
+}
+
+/* balão base */
+.chat-message-inner {
+  max-width: 70%;
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+
+  /* garante quebra de linha bonitinha */
+  word-break: break-word;
+  white-space: pre-wrap;      /* respeita quebras de linha, sem barra de rolagem horizontal */
+}
+
+/* balão CINZA só pro usuário (estilo ChatGPT) */
+.chat-message-user .chat-message-inner {
+  background: #f5f5f5;
+}
+
+/* balão branco, com borda leve, pro assistente */
+.chat-message-assistant .chat-message-inner {
+  background: #ffffff;
+  border: 1px solid #eceff3;
+}
+
+/* “You” / “Insight Loop AI” */
+.chat-message-meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+/* corpo da mensagem – tipografia uniforme */
+.chat-message-body {
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* normaliza parágrafos e listas vindas do markdown */
+.chat-message-body p {
+  margin-bottom: 0.4rem;
+}
+
+.chat-message-body ul,
+.chat-message-body ol {
+  margin: 0.25rem 0 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.chat-message-body li {
+  margin-bottom: 0.15rem;
+}
+
+/* se o markdown criar <pre><code>, evita quebrar layout */
+.chat-message-body pre {
+  white-space: pre-wrap;
+  word-break: break-word;
 }

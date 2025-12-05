@@ -1,14 +1,20 @@
 <% messages.each do |message| %>
   <% if message.role == "user" %>
-    <div class="d-flex justify-content-end mb-2">
-      <div class="bg-white px-3 pb-0 pt-3 rounded-pill">
-        <%= raw(render_markdown(message.content)) %>
+    <div class="il-chat-row il-chat-row-user">
+      <div class="il-chat-bubble il-chat-bubble-user">
+        <div class="il-chat-meta">You</div>
+        <div class="il-chat-content">
+          <%= raw(render_markdown(message.content)) %>
+        </div>
       </div>
     </div>
   <% elsif message.role == "assistant" %>
-    <div class="d-flex justify-content-start mb-5">
-      <div class="px-3 pb-0 pt-3">
-        <%= raw(render_markdown(message.content)) %>
+    <div class="il-chat-row il-chat-row-assistant">
+      <div class="il-chat-bubble il-chat-bubble-assistant">
+        <div class="il-chat-meta">Insight Loop AI</div>
+        <div class="il-chat-content">
+          <%= raw(render_markdown(message.content)) %>
+        </div>
       </div>
     </div>
   <% end %>
