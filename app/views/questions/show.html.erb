@@ -142,26 +142,28 @@
     </div>
 
     <!-- Coluna direita: Chats -->
-    <div class="col-lg-3 col-xl-3 ms-auto mt-4">
-      <div class="side-card">
-        <div class="side-card-header d-flex justify-content-between align-items-center">
-          <span>Chats about this case</span>
-          <%= button_to "New chat", question_chats_path(@question), class: "btn btn-sm btn-primary" %>
-        </div>
+<div class="col-lg-3 col-xl-3 ms-auto mt-4">
+  <div class="side-card">
+    <div class="side-card-header d-flex justify-content-between align-items-center">
+      <span>Chats about this case</span>
+      <%= button_to "New chat", question_chats_path(@question), class: "btn btn-sm btn-primary" %>
+    </div>
 
-        <% if @chats.any? %>
-          <% @chats.each do |chat| %>
-            <div class="chat-list-item">
-              <span><%= chat.title %></span>
-              <%= link_to "view", chat_path(chat), class: "btn btn-light chat-view-btn" %>
-            </div>
-          <% end %>
-        <% else %>
-          <div class="side-card-body text-muted small">
-            There are no chats yet.
+    <div class="side-card-body">
+      <% if @chats.any? %>
+        <% @chats.each do |chat| %>
+          <div class="chat-list-item d-flex justify-content-between align-items-center">
+            <span class="chat-list-title">
+              <%= chat.title.presence || "Untitled" %>
+            </span>
+            <%= link_to "view", chat_path(chat), class: "btn btn-link btn-sm chat-view-btn p-0" %>
           </div>
         <% end %>
-      </div>
+      <% else %>
+        <p class="text-muted small mb-0">
+          There are no chats yet.
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
