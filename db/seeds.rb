@@ -1,4 +1,6 @@
 Question.destroy_all
+User.destroy_all
+User.create!(email: "saunier@gmail.com", password: "123456")
 
   conversas = <<~CHAT
     [Customer]: Olá, bom dia. Preciso falar com um atendente urgente. O robô não tá entendendo meu problema.
