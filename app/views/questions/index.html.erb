@@ -1,7 +1,13 @@
-<h1>Conversations</h1>
+<div class="container my-5">
 
-<ul>
-  <% @questions.each do |question| %>
-    <li><%= link_to question.name, question_path(question) %></li>
-  <% end %>
-</ul>
+  <h1 class="mb-4" style="font-weight: 700;">Conversations</h1>
+
+  <div class="d-grid gap-3">
+    <% @questions.each do |question| %>
+      <%= link_to question.name,
+                  question_path(question),
+                  class: "btn btn-light text-start py-3 px-4 shadow-sm conversation-btn" %>
+    <% end %>
+  </div>
+
+</div>
